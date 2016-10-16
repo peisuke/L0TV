@@ -78,21 +78,19 @@ cv::Mat theasholding_RS(const cv::Mat &X, const cv::Mat &Y, double lambda, doubl
 
 int main(int argc, char* argv[])
 {	
-	cv::Mat src0(cv::imread("lena.png"));
-	cv::Mat src1(cv::imread("arukapa.jpg"));
-	cv::cvtColor(src0, src0, cv::COLOR_BGR2GRAY);
-	cv::cvtColor(src1, src1, cv::COLOR_BGR2GRAY);
+	if(argc != 2) {
+		std::cout << "Usage: L0TV [input filename]" << std::endl;
+		return 0;
+	}
 
-PROGRAM_START:
+	cv::Mat src(cv::imread(argv[1]));
+	cv::cvtColor(src, src, cv::COLOR_BGR2GRAY);
+
 	//	ƒmƒCƒY‚ÌÝ’è
-	int mode = 0;
 	double noise = 0.0;
 	cv::Mat img;
 	while(1) {
-		if(mode == 0) 
-			src0.copyTo(img);
-		else 
-			src1.copyTo(img);
+		src.copyTo(img);
 
 		for (auto it = img.begin<uchar>(), end = img.end<uchar>(); it != end; it++) {
 			double h = (double)rand() / RAND_MAX;
@@ -105,7 +103,6 @@ PROGRAM_START:
 		if (key == ';') noise += 0.01;
 		if (key == '-') noise -= 0.01;
 		if (noise < 0) noise = 0;
-		if (key == 'm') mode = 1 - mode;
 	}
 	cv::destroyWindow("img");
 
@@ -195,17 +192,12 @@ PROGRAM_START:
 		cv::waitKey(1);
 	}
 
-	cv::Mat median;
-	cv::medianBlur(img, median, 3);
-	cv::imshow("median", median);
-
 	int key = cv::waitKey(0);
 
 	if(key != 'q') {
 		cv::destroyWindow("U");
 		cv::destroyWindow("V");
-		cv::destroyWindow("median");
-		goto PROGRAM_START;
 	}
+
 	return 0;
 }
