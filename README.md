@@ -17,7 +17,7 @@ $ ./L0TV Lena.png
 
 ## Example
 
-After run the script the image is shown in your screen.
+After run the script, the original image is shown in your screen.
 
 <img src="https://user-images.githubusercontent.com/14243883/31289510-ec2ef160-ab03-11e7-8246-83ecf02d2311.jpg" width="320px">
 
