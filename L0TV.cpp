@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 		cv::imshow("img", img);
 		int key = cv::waitKey(0);
 		if(key == 'q') break;
-		if (key == ';') noise += 0.01;
+		if (key == '+' || key == ';') noise += 0.01;
 		if (key == '-') noise -= 0.01;
 		if (noise < 0) noise = 0;
 	}
